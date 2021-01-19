@@ -50,15 +50,9 @@ $ git clone https://github.com/creativetimofficial/argon-dashboard-django.git
 $ cd argon-dashboard-django
 $
 $ # Virtualenv modules installation (Unix based systems)
-$ virtualenv env
-$ source env/bin/activate
+$ pip install pipenv
+$ pipenv shell
 $
-$ # Virtualenv modules installation (Windows based systems)
-$ # virtualenv env
-$ # .\env\Scripts\activate
-$
-$ # Install modules - SQLite Storage
-$ pip3 install -r requirements.txt
 $
 $ # Create tables
 $ python manage.py makemigrations
@@ -97,7 +91,17 @@ Within the download you'll find the following directories and files:
    |    |    |-- <css, JS, images>         # CSS files, Javascripts files
    |    |
    |    |-- templates/                     # Templates used to render pages
+   |         |--geo/
+   |         |    |-- includes/                 # HTML chunks and components
+   |         |    |-- navigation.html      # Top menu component
+   |         |    |-- sidebar.html         # Sidebar component
+   |         |    |-- footer.html          # App Footer
+   |         |    |-- scripts.html         # Scripts common to all pages
    |         |
+   |         |    -- layouts/                  # Master pages
+   |         |    |-- base-fullscreen.html # Used by Authentication pages
+   |         |    |-- base.html            # Used by common pages
+   |         |    |
    |         |-- includes/                 # HTML chunks and components
    |         |    |-- navigation.html      # Top menu component
    |         |    |-- sidebar.html         # Sidebar component
