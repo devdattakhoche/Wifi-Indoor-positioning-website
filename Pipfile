@@ -10,10 +10,7 @@ pycodestyle = "*"
 pytz = "*"
 sqlparse = "*"
 unipath = "*"
-dj-database-url = "*"
 python-decouple = "*"
-gunicorn = "*"
-whitenoise = "*"
 Django = "==2.1.*"
 
 [dev-packages]
