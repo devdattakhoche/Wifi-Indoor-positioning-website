@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 """
+License: MIT
 Copyright (c) 2019 - present AppSeed.us
 """
 
@@ -47,7 +48,7 @@ def register_user(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
 
-            msg     = 'User created'
+            msg     = 'User created.'
             success = True
             
             #return redirect("/login/")

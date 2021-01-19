@@ -9,10 +9,12 @@ autopep8 = "*"
 pycodestyle = "*"
 pytz = "*"
 sqlparse = "*"
+unipath = "*"
 dj-database-url = "*"
 python-decouple = "*"
-Django = "*"
-Unipath = "*"
+gunicorn = "*"
+whitenoise = "*"
+Django = "==2.1.*"
 
 [dev-packages]
 
