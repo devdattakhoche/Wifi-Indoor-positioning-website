@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "*"
+autopep8 = "*"
+pycodestyle = "*"
+pytz = "*"
+sqlparse = "*"
+unipath = "*"
+dj-database-url = "*"
+python-decouple = "*"
+gunicorn = "*"
+whitenoise = "*"
+Django = "==2.1.*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
