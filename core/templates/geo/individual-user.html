@@ -103,7 +103,7 @@
               </div>
             </div>
             <div class="card-body">
-              <div id="map-canvas" class="map-canvas" style="height: 600px;"></div>
+              <div id="mapid" class="map-canvas" style="height: 600px;"></div>
             </div>
           </div>
         </div>
@@ -116,4 +116,61 @@
 {% endblock content %}
 
 <!-- Specific JS goes HERE --> 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+<script src="../../static/assets/js/init-firebase.js"></script>
+<script>
+  var map = L.map("mapid", {
+    minZoom: -5,
+    maxZoom: 4,
+    zoom: -5,
+    crs: L.CRS.Simple,
+    scrollWheelZoom: false
+  });
+
+  map.invalidateSize();
+
+  var url = "../../static/assets/img/floorPlan/floorplan.jpg";
+  var bounds = [
+      [0, 0],
+      [1000, 1000],
+  ];
+
+  L.imageOverlay(url, bounds).addTo(map);
+  map.fitBounds(bounds);
+
+
+  var markers = {}
+  var firestore = firebase.firestore();
+  var patientId ="{{ details.patientId }}";
+
+  setInterval(() => {
+    var docRefPatient = firestore.collection("active_patients").doc(patientId);
+    docRefPatient.get().then(function (doc) {
+      var patientData = doc.data();
+      var docRefDevice = firestore.collection("active_device").doc(patientData["deviceId"]);
+
+      docRefDevice.get().then(function (dev) {
+        var deviceData = dev.data();
+        if(markers[patientData["deviceId"]] == undefined){
+          markers[patientData["deviceId"]] = L.marker([deviceData["currentX"], deviceData["currentY"]]).addTo(map);
+          markers[patientData["deviceId"]].bindPopup(`
+              <img src="${patientData["image"]}" style="height:25% ; width:25%">
+              <h1> ${patientData["name"]} <\h1>
+              `);
+        }
+
+        markers[patientData["deviceId"]].slideTo([deviceData["currentX"], deviceData["currentY"]], {
+            duration: 1000,
+            // keepAtCenter: true
+        });
+      })
+    });
+  }, 1000);
+
+</script>
+
+{% endblock javascripts %}
