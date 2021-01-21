@@ -22,8 +22,10 @@ def all_user_list(request):
 
 @login_required(login_url="/login/")
 def blacklist(request):
-    params = {'patients_data' : fb.get_blacklist()}
-    return render(request, "geo/blacklist.html",params)
+    blacklist =fb.get_blacklist()
+    if(blacklist):
+        return render(request, "geo/blacklist.html",{'patients_data':blacklist})
+    return render(request, "geo/blacklist.html")
 
 @login_required(login_url="/login/")
 def individual_user(request,patient_id):

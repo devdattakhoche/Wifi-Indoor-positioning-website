@@ -19,9 +19,7 @@ def get_all_active_paitent():
 		return all_patients
 	except Exception as ex:		
 		print('Exception Occurred which is of type :', ex.__class__.__name__)
-		y = input('If you want to see Traceback press 1 : ')
-		if y == '1':
-			traceback.print_exc()
+		traceback.print_exc()
 		return False
 # get_all_active_paitent()
 
@@ -39,9 +37,7 @@ def get_active_paitent(uid):
 		return doc_ref.get().to_dict()
 	except Exception as ex:		
 		print('Exception Occurred which is of type :', ex.__class__.__name__)
-		y = input('If you want to see Traceback press 1 : ')
-		if y == '1':
-			traceback.print_exc()
+		traceback.print_exc()
 		return False
 
 def get_blacklist():
@@ -57,9 +53,7 @@ def get_blacklist():
 		return all_patients
 	except Exception as ex:		
 		print('Exception Occurred which is of type :', ex.__class__.__name__)
-		y = input('If you want to see Traceback press 1 : ')
-		if y == '1':
-			traceback.print_exc()
+		traceback.print_exc()
 		return False		
 
 
@@ -78,8 +72,6 @@ def Check_breach(uid):
 		return False
 	except Exception as ex:
 		print('Exception Occurred which is of type :', ex.__class__.__name__)
-		y = input('If you want to see Traceback press 1 : ')
-		if y == '1':
-			traceback.print_exc()
+		traceback.print_exc()
 		return False
 	
