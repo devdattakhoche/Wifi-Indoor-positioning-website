@@ -16,7 +16,7 @@ urlpatterns = [
     path('geo', views.dashboard, name='dashboard'),
     path('geo/all-user-tracking',views.all_user_tracking,name='all-user-tracking'),
     path('geo/all-user-list',views.all_user_list,name='all-user-list'),
-    path('geo/individual-user/<int:id>',views.individual_user,name='individual-user'),
+    path('geo/individual-user/<slug:patient_id>',views.individual_user,name='individual-user'),
     path('geo/blacklist',views.blacklist,name='blacklist'),
     path('geo/admin-profile',views.admin_profile,name='admin-profile'),
 ]
