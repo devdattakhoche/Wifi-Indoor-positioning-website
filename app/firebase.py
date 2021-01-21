@@ -49,7 +49,10 @@ def get_blacklist():
 		collection = db.collection(u'blacklist')
 		all_patients = list(map(lambda x: x.to_dict(), collection.stream()))
 		for i in all_patients:
+			if get_active_paitent(i['patientId'])==False:
+				continue
 			i['patient_details'] = get_active_paitent(i['patientId'])
+		# if(len(all_patients['patient_details'])==0): return False
 		return all_patients
 	except Exception as ex:		
 		print('Exception Occurred which is of type :', ex.__class__.__name__)
