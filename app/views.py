@@ -1,15 +1,9 @@
-# -*- encoding: utf-8 -*-
-"""
-License: MIT
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-
+from . import firebase as fb
 
 
 @login_required(login_url="/login/")
@@ -22,21 +16,21 @@ def all_user_tracking(request):
     
 @login_required(login_url="/login/")
 def all_user_list(request):
-    return render(request, "geo/all-user-list.html")
+    params = {'patients_data' : fb.get_all_active_paitent()}
+    return render(request, "geo/all-user-list.html",params)
 
 
 @login_required(login_url="/login/")
 def blacklist(request):
-    return render(request, "geo/blacklist.html")
+    params = {'patients_data' : fb.get_blacklist()}
+    return render(request, "geo/blacklist.html",params)
 
 @login_required(login_url="/login/")
-def individual_user(request,id):
-    print(id)
-    return render(request, "geo/blacklist.html")
+def individual_user(request,patient_id):
+    return render(request, "geo/individual-user.html")
 
 @login_required(login_url="/login/")
 def admin_profile(request):
-    print(id)
     return render(request, "geo/profile.html")
 
 '''

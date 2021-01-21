@@ -18,6 +18,9 @@ venv
 # other
 .DS_Store
 
+#firebase
+ServiceKey.json
+
 # javascript
 package-lock.json
 
