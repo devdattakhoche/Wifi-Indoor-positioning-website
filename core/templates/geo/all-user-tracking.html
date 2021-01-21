@@ -19,7 +19,7 @@
         <div class="col">
           <div class="card shadow border-0">
             <!-- TODO : ADD Maps tracking here in this -->
-            <div id="map-canvas" class="map-canvas" style="height: 600px;"></div>
+            <div id="mapid" class="map-canvas" style="height: 600px;"></div>
           </div>
         </div>
       </div>
@@ -31,4 +31,66 @@
 {% endblock content %}
 
 <!-- Specific JS goes HERE --> 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+  <script src="../../static/assets/js/init-firebase.js"></script>
+
+  <script>
+    var map = L.map("mapid", {
+      minZoom: -5,
+      maxZoom: 4,
+      zoom: -5,
+      crs: L.CRS.Simple,
+      scrollWheelZoom: false
+    });
+
+    map.invalidateSize();
+
+    var url = "../../static/assets/img/floorPlan/floorplan.jpg";
+    var bounds = [
+        [0, 0],
+        [1000, 1000],
+    ];
+
+    L.imageOverlay(url, bounds).addTo(map);
+    map.fitBounds(bounds);
+
+
+    var markers = {}
+
+    var firestore = firebase.firestore();
+
+    setInterval(() => {
+
+      firestore.collection("active_device").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+
+          var data = doc.data();
+
+          if(markers[data["device-id"]] == undefined){
+
+            markers[data["device-id"]] = L.marker([data["currentX"], data["currentY"]]).addTo(map);
+
+            var patientId = data["patient-id"]
+            var docRef = firestore.collection("active_patients").doc(patientId);
+            docRef.get().then(function(d) {
+              var patientData = d.data()
+              markers[data["device-id"]].bindPopup(`
+                <img src="${patientData["image"]}" style="height:25% ; width:25%">
+                <h1> ${patientData["name"]} <\h1>
+                `);
+            })
+          }
+
+          markers[data["device-id"]].slideTo([data["currentX"], data["currentY"]], {
+            duration: 1000,
+            // keepAtCenter: true
+          });
+        })
+      });
+    }, 1000);
+
+  </script>
+{% endblock javascripts %}
