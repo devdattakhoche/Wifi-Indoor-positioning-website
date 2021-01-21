@@ -122,6 +122,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {%if patients_data is None%}
+                  <tr>
+                    <th class="media align-items-center" scope="row">
+                      <div class="media align-items-center">
+                        <h1 style="color: white;">No Breach occured</h1>
+                      </div>
+                    </th>
+                  </tr>
+                  {% endif %}
+                  {%if patients_data %}
                   {% for i in patients_data %}
                   <tr>
                     <th scope="row">
@@ -150,6 +160,7 @@
                     </td>
                   </tr>
                   {% endfor %}
+                  {% endif %}
                 </tbody>
               </table>
             </div>

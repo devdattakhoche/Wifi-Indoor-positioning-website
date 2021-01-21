@@ -16,14 +16,21 @@ def all_user_tracking(request):
     
 @login_required(login_url="/login/")
 def all_user_list(request):
-    params = {'patients_data' : fb.get_all_active_paitent()}
-    return render(request, "geo/all-user-list.html",params)
+    all_patients_data =fb.get_all_active_paitent()
+    if(all_patients_data):
+        params = {'patients_data' : all_patients_data}
+        return render(request, "geo/all-user-list.html",params)
+    return render(request,  "geo/all-user-list.html")
+    
+    
 
 
 @login_required(login_url="/login/")
 def blacklist(request):
-    params = {'patients_data' : fb.get_blacklist()}
-    return render(request, "geo/blacklist.html",params)
+    blacklist =fb.get_blacklist()
+    if(blacklist):
+        return render(request, "geo/blacklist.html",{'patients_data':blacklist})
+    return render(request, "geo/blacklist.html")
 
 @login_required(login_url="/login/")
 def individual_user(request,patient_id):
