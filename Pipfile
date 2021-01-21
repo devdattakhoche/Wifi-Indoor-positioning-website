@@ -12,6 +12,8 @@ sqlparse = "*"
 unipath = "*"
 python-decouple = "*"
 Django = "==2.1.*"
+firebase-admin = "*"
 [dev-packages]
+
 [requires]
 python_version = "3.8"

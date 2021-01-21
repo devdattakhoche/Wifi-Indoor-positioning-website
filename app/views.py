@@ -27,7 +27,12 @@ def blacklist(request):
 
 @login_required(login_url="/login/")
 def individual_user(request,patient_id):
-    return render(request, "geo/individual-user.html")
+    patient_details = fb.get_active_paitent(patient_id)
+    if(fb.Check_breach(patient_id) != False): 
+        breach = fb.Check_breach(patient_id)
+        return render(request, "geo/individual-user.html",{'details':patient_details,'breachTime':breach['breachTime']})
+    else:
+        return render(request, "geo/individual-user.html",{'details':patient_details,'breachTime':None})
 
 @login_required(login_url="/login/")
 def admin_profile(request):
