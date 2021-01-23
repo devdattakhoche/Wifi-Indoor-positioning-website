@@ -1,47 +1,54 @@
 {% extends 'geo/layouts/base.html' %}
-
 {% block title %} Profile {% endblock title %}
-
 {% block content %}
 
-    <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
-         style="min-height: 300px; background-image: url({{details.image}}); background-size: cover; background-position: center top;">
-      <!-- Mask -->
-      <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
-      <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">{{ details.name }}</h1>
-            <p class="text-white mt-0 mb-5">{{ details.name }} was admitted on {{details.dateOfAdmission}} for having {{details.admittedFor}}. You can see his live tracking and other details below.</p>
-          </div>
-        </div>
+<!-- Header -->
+<div
+  class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+  style="min-height: 300px; background-image: url({{details.image}}); background-size: cover; background-position: center top;"
+>
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">{{ details.name }}</h1>
+        <p class="text-white mt-0 mb-5">
+          {{ details.name }} was admitted on {{details.dateOfAdmission}} for
+          having {{details.admittedFor}}. You can see his live tracking and
+          other details below.
+        </p>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="container-fluid mt--7">
-
-      <div class="row">
-        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-          <div class="card card-profile shadow">
-            <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="#">
-                    <img src="{{details.image}}" style="height:200px;width:200px;"class="rounded-circle">
-                  </a>
-                </div>
-              </div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="#">
+                <img
+                  src="{{details.image}}"
+                  style="height: 200px; width: 200px"
+                  class="rounded-circle"
+                />
+              </a>
             </div>
-            <!-- <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          </div>
+        </div>
+        <!-- <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-default float-right">Message</a>
                 <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
               </div>
             </div> -->
-            <div class="card-body pt-0 pt-md-4">
-              <!-- <div class="row">
+        <div class="card-body pt-0 pt-md-4">
+          <!-- <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                     <div>
@@ -59,63 +66,60 @@
                   </div>
                 </div>
               </div> -->
-              <div class="text-center"  style="padding-top:150px;">
-                <h3>
-                  {{ details.name }}
-                </h3>
-                <div class="h5 font-weight-300">
-                  Admitted for  
-                  <span class="badge badge-dot">
-                    <i class="bg-warning"></i> {{details.admittedFor}}
-                  </span>
-                </div>
-                <div class="h5 font-weight-300">
-                  Admitted on  
-                     {{details.dateOfAdmission}}
-                </div>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Ward Number : {{details.wardNumber}}
-                </div>
-                <div>
-                  <i class="ni education_hat mr-2"></i>Jaslok Hospital and Research Centre
-                </div>
-                <hr class="my-4" />
-                {% if breachTime is None %}
-                <p>This patient has never breached the system</p>
-                {% endif %}
-                {% if breachTime %}
-                <p>This patient breached last at {{breachTime}}</p>
-                {% endif %}
-              </div>
+          <div class="text-center" style="padding-top: 150px">
+            <h3>{{ details.name }}</h3>
+            <div class="h5 font-weight-300">
+              Admitted for
+              <span class="badge badge-dot">
+                <i class="bg-warning"></i> {{details.admittedFor}}
+              </span>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-8 order-xl-1">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">Live User Tracking</h3>
-                </div>
-                <!-- <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                </div> -->
-              </div>
+            <div class="h5 font-weight-300">
+              Admitted on {{details.dateOfAdmission}}
             </div>
-            <div class="card-body">
-              <div id="mapid" class="map-canvas" style="height: 600px;"></div>
+            <div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>Ward Number :
+              {{details.wardNumber}}
             </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>Jaslok Hospital and Research
+              Centre
+            </div>
+            <hr class="my-4" />
+            {% if breachTime is None %}
+            <p>This patient has never breached the system</p>
+            {% endif %} {% if breachTime %}
+            <p>This patient breached last at {{breachTime}}</p>
+            {% endif %}
           </div>
         </div>
       </div>
-
-      {% include "geo/includes/footer.html" %}
-
     </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Live User Tracking</h3>
+            </div>
+            <!-- <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                </div> -->
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="mapid" class="map-canvas" style="height: 600px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "geo/includes/footer.html" %}
+</div>
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}
 
 <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
@@ -128,49 +132,64 @@
     maxZoom: 4,
     zoom: -5,
     crs: L.CRS.Simple,
-    scrollWheelZoom: false
+    scrollWheelZoom: false,
   });
 
   map.invalidateSize();
 
   var url = "../../static/assets/img/floorPlan/floorplan.jpg";
   var bounds = [
-      [0, 0],
-      [1000, 1000],
+    [0, 0],
+    [1000, 1000],
   ];
 
   L.imageOverlay(url, bounds).addTo(map);
   map.fitBounds(bounds);
 
-
-  var markers = {}
+  var markers = {};
   var firestore = firebase.firestore();
-  var patientId ="{{ details.patientId }}";
+  var patientId = "{{ details.patientId }}";
 
   setInterval(() => {
     var docRefPatient = firestore.collection("active_patients").doc(patientId);
-    docRefPatient.get().then(function (doc) {
-      var patientData = doc.data();
-      var docRefDevice = firestore.collection("active_device").doc(patientData["deviceId"]);
+    docRefPatient
+      .get()
+      .then(function (doc) {
+        var patientData = doc.data();
+        var docRefDevice = firestore
+          .collection("active_device")
+          .doc(patientData["deviceId"]);
 
-      docRefDevice.get().then(function (dev) {
-        var deviceData = dev.data();
-        if(markers[patientData["deviceId"]] == undefined){
-          markers[patientData["deviceId"]] = L.marker([deviceData["currentX"], deviceData["currentY"]]).addTo(map);
-          markers[patientData["deviceId"]].bindPopup(`
+        docRefDevice
+          .get()
+          .then(function (dev) {
+            var deviceData = dev.data();
+            if (markers[patientData["deviceId"]] == undefined) {
+              markers[patientData["deviceId"]] = L.marker([
+                deviceData["currentX"],
+                deviceData["currentY"],
+              ]).addTo(map);
+              markers[patientData["deviceId"]].bindPopup(`
               <img src="${patientData["image"]}" style="height:25% ; width:25%">
               <h1> ${patientData["name"]} <\h1>
               `);
-        }
+            }
 
-        markers[patientData["deviceId"]].slideTo([deviceData["currentX"], deviceData["currentY"]], {
-            duration: 1000,
-            // keepAtCenter: true
-        });
+            markers[patientData["deviceId"]].slideTo(
+              [deviceData["currentX"], deviceData["currentY"]],
+              {
+                duration: 1000,
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("There is an error: " + error);
+          });
       })
-    });
+      .catch((error) => {
+        console.log("There is an error: " + error);
+      });
   }, 1000);
-
 </script>
 
 {% endblock javascripts %}

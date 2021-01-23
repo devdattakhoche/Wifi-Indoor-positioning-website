@@ -1,186 +1,216 @@
 {% extends 'geo/layouts/base.html' %}
-
-{% block title %} Maps {% endblock title %}
-
+{% block title %} Maps {% endblock title%}
 {% block content %}
 
-    <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-      <div class="container-fluid">
-        <div class="header-body">
-          
-          <!-- Card stats -->
-          <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic Analysis</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br />
-          <br />
-          <h1>All user tracking</h1>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid mt--7">
-
+<!-- Header -->
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
       <div class="row">
-        <div class="col">
-          <div class="card shadow border-0">
-            <!-- TODO : ADD Maps tracking here in this -->
-            <div id="mapid" class="map-canvas" style="height: 600px;"></div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Traffic Analysis
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">350,897</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-danger text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"
+                  ><i class="fa fa-arrow-up"></i> 3.48%</span
+                >
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    New users
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">2,356</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-warning text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-danger mr-2"
+                  ><i class="fas fa-arrow-down"></i> 3.48%</span
+                >
+                <span class="text-nowrap">Since last week</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Sales
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">924</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-yellow text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-warning mr-2"
+                  ><i class="fas fa-arrow-down"></i> 1.10%</span
+                >
+                <span class="text-nowrap">Since yesterday</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Performance
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">49,65%</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-info text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-percent"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"
+                  ><i class="fas fa-arrow-up"></i> 12%</span
+                >
+                <span class="text-nowrap">Since last month</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      {% include "geo/includes/footer.html" %}
-
+      <br />
+      <br />
+      <h1>All user tracking</h1>
     </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow border-0">
+        <!-- TODO : ADD Maps tracking here in this -->
+        <div id="mapid" class="map-canvas" style="height: 600px"></div>
+      </div>
+    </div>
+  </div>
+
+  {% include "geo/includes/footer.html" %}
+</div>
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}
-  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
-  <script src="../../static/assets/js/init-firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+<script src="../../static/assets/js/init-firebase.js"></script>
 
-  <script>
-    var map = L.map("mapid", {
-      minZoom: -5,
-      maxZoom: 4,
-      zoom: -5,
-      crs: L.CRS.Simple,
-      scrollWheelZoom: false
-    });
+<script>
+  var map = L.map("mapid", {
+    minZoom: -5,
+    maxZoom: 4,
+    zoom: -5,
+    crs: L.CRS.Simple,
+    scrollWheelZoom: false,
+  });
 
-    map.invalidateSize();
+  map.invalidateSize();
 
-    var url = "../../static/assets/img/floorPlan/floorplan.jpg";
-    var bounds = [
-        [0, 0],
-        [1000, 1000],
-    ];
+  var url = "../../static/assets/img/floorPlan/floorplan.jpg";
+  var bounds = [
+    [0, 0],
+    [1000, 1000],
+  ];
 
-    L.imageOverlay(url, bounds).addTo(map);
-    map.fitBounds(bounds);
+  L.imageOverlay(url, bounds).addTo(map);
+  map.fitBounds(bounds);
 
+  var markers = {};
 
-    var markers = {}
+  var firestore = firebase.firestore();
 
-    var firestore = firebase.firestore();
-
-    setInterval(() => {
-
-      firestore.collection("active_device").get().then(function (querySnapshot) {
+  setInterval(() => {
+    firestore
+      .collection("active_device")
+      .get()
+      .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-
           var data = doc.data();
 
-          if(markers[data["device-id"]] == undefined){
+          if (markers[data["deviceId"]] == undefined) {
+            markers[data["deviceId"]] = L.marker([
+              data["currentX"],
+              data["currentY"],
+            ]).addTo(map);
 
-            markers[data["device-id"]] = L.marker([data["currentX"], data["currentY"]]).addTo(map);
-
-            var patientId = data["patient-id"]
+            var patientId = data["patientId"];
             var docRef = firestore.collection("active_patients").doc(patientId);
-            docRef.get().then(function(d) {
-              var patientData = d.data()
-              markers[data["device-id"]].bindPopup(`
+            docRef
+              .get()
+              .then(function (d) {
+                var patientData = d.data();
+                markers[data["deviceId"]].bindPopup(`
                 <img src="${patientData["image"]}" style="height:25% ; width:25%">
                 <h1> ${patientData["name"]} <\h1>
                 `);
-            })
+              })
+              .catch((error) => {
+                console.log("There is an error: " + error);
+              });
           }
 
-          markers[data["device-id"]].slideTo([data["currentX"], data["currentY"]], {
-            duration: 1000,
-            // keepAtCenter: true
-          });
-        })
+          markers[data["deviceId"]].slideTo(
+            [data["currentX"], data["currentY"]],
+            {
+              duration: 1000,
+            }
+          );
+        });
+      })
+      .catch((error) => {
+        console.log("There is an error: " + error);
       });
-    }, 1000);
-
-  </script>
+  }, 1000);
+</script>
 {% endblock javascripts %}
