@@ -135,10 +135,10 @@
 <script>
     var bounds = [
         [0, 0],
-        [1000, 1000],
+        [337, 615],
     ];
 
-    var floor0 = L.imageOverlay("/static/assets/img/maps/floorplan0.jpg", bounds),
+    var floor0 = L.imageOverlay("/static/assets/img/maps/floorplandev.PNG", bounds),
         floor1 = L.imageOverlay("/static/assets/img/maps/floorplan1.jpg", bounds),
         floor2 = L.imageOverlay("/static/assets/img/maps/floorplan2.jpg", bounds),
         map = L.map("mapid", {
@@ -179,6 +179,7 @@
     var markers = {};
 
     var firestore = firebase.firestore();
+    var m = L.marker([0,0]).addTo(map);
 
     setInterval(() => {
 
