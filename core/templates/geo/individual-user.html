@@ -140,7 +140,7 @@
 <script>
     var bounds = [
         [0, 0],
-        [1000, 1000],
+        [337, 615],
     ];
     var floor0 = L.imageOverlay("/static/assets/img/maps/floorplandev.PNG", bounds),
         floor1 = L.imageOverlay("/static/assets/img/maps/floorplan1.jpg", bounds),
@@ -226,7 +226,16 @@
                 console.log("There is an error: " + error);
             });
     }, 1000);
-    L.marker([0, 335]).addTo(map);
+
+    function checkfence(x, y) {
+        // this function ensure that the provided x and y co-ordinates are inside or outside the fence area
+        if (x > 335 && x <= 1000 && y > 0 && y < 1000) {
+            console.log("inside fence")
+        } else {
+            console.log("outside fence")
+        }
+    }
+    L.marker([0, 210]).addTo(map);
 
     /*
 
@@ -255,7 +264,7 @@ USER HISTORY JAVA SCRIPT
     var startToEnd = []
 
     var redIcon = new L.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
@@ -283,10 +292,23 @@ USER HISTORY JAVA SCRIPT
                         // doc.data() is never undefined
                         // for query doc snapshots
                         console.log('hello');
-                        console.log(doc.id, " => ", doc.data()['X']);
+                        console.log(doc.id, " => ", doc.data()['x'], doc.data()["y"], doc.data()["floor"]);
                         startToEnd.push(
-                            [doc.data()['X'], doc.data()['Y']]
+                            [doc.data()['x'], doc.data()['y']]
                         );
+                        if (doc.data()["floor"] == 0) {
+                            maphis.removeLayer(floorhis1);
+                            maphis.removeLayer(floorhis2);
+                            floorhis0.addTo(maphis);
+                        } else if (doc.data()["floor"] == 1) {
+                            maphis.removeLayer(floorhis0);
+                            maphis.removeLayer(floorhis2);
+                            floorhis1.addTo(maphis);
+                        } else {
+                            maphis.removeLayer(floorhis1);
+                            maphis.removeLayer(floorhis0);
+                            floorhis2.addTo(maphis);
+                        }
 
                     });
 
@@ -313,14 +335,7 @@ USER HISTORY JAVA SCRIPT
         });
     });
 
-    function checkfence(x, y) {
-        // this function ensure that the provided x and y co-ordinates are inside or outside the fence area
-        if (x > 335 && x <= 1000 && y > 0 && y < 1000) {
-            console.log("inside fence")
-        } else {
-            console.log("outside fence")
-        }
-    }
+
 
     map.on('click', function(e) {
         //provide X and Y coordinate onclick method devdutta do it  by yourself
