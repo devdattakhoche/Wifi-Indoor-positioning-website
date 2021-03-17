@@ -177,9 +177,11 @@
         // console.log(currentFloor)
     });
     var markers = {};
+    var geofence = {};
 
     var firestore = firebase.firestore();
-    var m = L.marker([0,0]).addTo(map);
+    // var m = L.marker([0, 0]).addTo(map);
+
 
     setInterval(() => {
 
@@ -196,7 +198,6 @@
                             data["currentX"],
                             data["currentY"],
                         ]).addTo(map);
-
                         var patientId = data["patientId"];
                         var docRef = firestore.collection("active_patients").doc(patientId);
                         docRef
@@ -218,6 +219,7 @@
                             duration: 1000,
                         }
                     );
+
                 });
                 Object.keys(markers).forEach(function(e) {
                     var check = temp.includes(e);
@@ -233,5 +235,23 @@
 
 
     }, 1000);
+    map.on('click', function(e) {
+        //provide X and Y coordinate onclick method devdutta do it  by yourself
+        y = e.latlng.lng
+        x = e.latlng.lat
+        console.log(x, y)
+        checkfence(x, y);
+    });
+
+    function checkfence(x, y) {
+        // this function ensure that the provided x and y co-ordinates are inside or outside the fence area
+        if (y > 205 && y <= 615 && x > 0 && x < 340) {
+            return false
+            console.log("inside fence")
+        } else {
+            return true
+            console.log("outside fence")
+        }
+    }
 </script>
 {% endblock javascripts %}

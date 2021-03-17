@@ -1,20 +1,92 @@
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
+<!-- Footer -->
+<footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+        <div class="col-xl-6">
             <div class="text-center text-xl-left text-muted">
-              <a target="_blank" 
-                 href="https://www.creative-tim.com/product/argon-dashboard-django" 
-                 class="font-weight-bold ml-1">Argon Dashboard Django</a>
+                <a target="_blank" href="https://www.creative-tim.com/product/argon-dashboard-django" class="font-weight-bold ml-1">Argon Dashboard Django</a>
             </div>
-          </div>
-          <div class="col-xl-6">
-            <div class="text-center text-xl-right text-muted">
-              <a href="https://www.creative-tim.com" 
-                 class="font-weight-bold ml-1" target="_blank"> &copy; Creative-Tim</a> 
-                 - coded by <a target="_blank" href="https://appseed.us?ref=ct-demo">AppSeed</a>.
-            </div>
-          </div>
         </div>
-      </footer>
+        <div class="col-xl-6">
+            <div class="text-center text-xl-right text-muted">
+                <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank"> &copy; Creative-Tim</a> - coded by <a target="_blank" href="https://appseed.us?ref=ct-demo">AppSeed</a>.
+            </div>
+        </div>
+    </div>
+
+</footer>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+<script src="../../static/assets/js/init-firebase.js"></script>
+<script>
+    var geofence = {};
+    var showAlert = 0
+    var firestore = firebase.firestore();
+    setInterval(() => {
+
+        firestore
+            .collection("active_device").get().then(function(querySnapshot) {
+                var temp = [];
+                querySnapshot.forEach(function(doc) {
+                    var data = doc.data();
+                    temp.push(data['deviceId'])
+                    if (geofence[data["deviceId"]] == undefined) {
+
+                        geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"])
+                        console.log(checkfence(data["currentX"], data["currentY"]), data["deviceId"])
+
+                    } else {
+                        console.log(checkfence(data["currentX"], data["currentY"]), data["deviceId"], geofence[data["deviceId"]])
+                        if (geofence[data["deviceId"]] == true && checkfence(data["currentX"], data["currentY"]) == true && showAlert == 0) {
+                            geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
+                            var patientId = data["patientId"];
+                            showAlert = 1
+                            var docRef = firestore.collection("active_patients").doc(patientId);
+                            docRef
+                                .get()
+                                .then(function(d) {
+                                    var patientData = d.data();
+                                    alert(patientData['name'] + " is OUTSIDE ")
+                                })
+                                .catch((error) => {
+                                    console.log("There is an error: " + error);
+                                });
+
+
+                        } else if (geofence[data["deviceId"]] == false || checkfence(data["currentX"], data["currentY"]) == false) {
+                            showAlert = 0
+                            geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
+                        } else {
+                            geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
+                        }
+                    }
+
+
+
+                });
+                Object.keys(geofence).forEach(function(e) {
+                    var check = temp.includes(e);
+                    if (!check) {
+
+                        delete geofence[e];
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log("There is an error: " + error);
+            });
+
+
+    }, 1000);
+
+    function checkfence(x, y) {
+        // this function ensure that the provided x and y co-ordinates are inside or outside the fence area
+        if (y > 205 && y <= 615 && x > 0 && x < 340) {
+            return false
+            console.log("inside fence")
+        } else {
+            return true
+            console.log("outside fence")
+        }
+    }
+</script>
