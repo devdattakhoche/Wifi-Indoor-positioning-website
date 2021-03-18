@@ -21,6 +21,7 @@
 <script>
     var geofence = {};
     var showAlert = 0
+    var count = 0
     var firestore = firebase.firestore();
     setInterval(() => {
 
@@ -33,12 +34,16 @@
                     if (geofence[data["deviceId"]] == undefined) {
 
                         geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"])
+                        if (geofence[data["deviceId"]]) {
+                            count += 1
+                        }
                         console.log(checkfence(data["currentX"], data["currentY"]), data["deviceId"])
 
                     } else {
                         console.log(checkfence(data["currentX"], data["currentY"]), data["deviceId"], geofence[data["deviceId"]])
                         if (geofence[data["deviceId"]] == true && checkfence(data["currentX"], data["currentY"]) == true && showAlert == 0) {
                             geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
+                            count += 1
                             var patientId = data["patientId"];
                             showAlert = 1
                             var docRef = firestore.collection("active_patients").doc(patientId);
@@ -55,10 +60,24 @@
 
                         } else if (geofence[data["deviceId"]] == false || checkfence(data["currentX"], data["currentY"]) == false) {
                             showAlert = 0
+                            count = 0
                             geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
                         } else {
+                            count += 1
                             geofence[data["deviceId"]] = checkfence(data["currentX"], data["currentY"]);
                         }
+                    }
+
+                    if (count == 10) {
+                        firestore.collection("blacklist").add({
+                                patientId: data["patientId"]
+                            })
+                            .then((docRef) => {
+                                console.log("Document written with ID: ", docRef.id);
+                            })
+                            .catch((error) => {
+                                console.error("Error adding document: ", error);
+                            });
                     }
 
 

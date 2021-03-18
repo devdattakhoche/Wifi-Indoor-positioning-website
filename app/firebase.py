@@ -47,7 +47,9 @@ def get_blacklist():
 	"""
 	try:
 		collection = db.collection(u'blacklist')
+		print(collection)
 		all_patients = list(map(lambda x: x.to_dict(), collection.stream()))
+		print(all_patients)
 		for i in all_patients:
 			if get_active_paitent(i['patientId'])==False:
 				continue
