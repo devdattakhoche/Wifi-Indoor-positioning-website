@@ -22,6 +22,7 @@
     var geofence = {};
     var showAlert = 0
     var count = 0
+    var exit = -1
     var firestore = firebase.firestore();
     setInterval(() => {
 
@@ -51,7 +52,8 @@
                                 .get()
                                 .then(function(d) {
                                     var patientData = d.data();
-                                    alert(patientData['name'] + " is OUTSIDE ")
+
+                                    alert(patientData['name'] + " is OUTSIDE from exit: " + exit)
                                 })
                                 .catch((error) => {
                                     console.log("There is an error: " + error);
@@ -68,11 +70,12 @@
                         }
                     }
 
-                    if (count == 10) {
+                    if (count == 6) {
                         firestore.collection("blacklist").add({
                                 patientId: data["patientId"]
                             })
                             .then((docRef) => {
+
                                 console.log("Document written with ID: ", docRef.id);
                             })
                             .catch((error) => {
@@ -100,12 +103,18 @@
 
     function checkfence(x, y) {
         // this function ensure that the provided x and y co-ordinates are inside or outside the fence area
-        if (y > 205 && y <= 615 && x > 0 && x < 340) {
-            return false
-            console.log("inside fence")
-        } else {
+        console.log("=====>" + x + "  =>" + y)
+        if (x == 432 && y == 32) {
+            exit = 1
             return true
-            console.log("outside fence")
+            console.log("outside geo fence")
+        } else if (x == 61 && y == 236) {
+            exit = 2
+            return true;
+        } else {
+            return false
+            console.log("inside geo fence")
         }
+        //x == 61 && y == 236
     }
 </script>
